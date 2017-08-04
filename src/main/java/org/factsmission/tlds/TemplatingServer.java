@@ -23,7 +23,7 @@
  */
 package org.factsmission.tlds;
 
-import com.factsmission.tools.slds.Server;
+import solutions.linked.slds.Server;
 import java.io.FileNotFoundException;
 import java.util.Set;
 
