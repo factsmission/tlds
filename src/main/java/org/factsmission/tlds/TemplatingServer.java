@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 user.
+ * Copyright 2017 FactsMission AG, Switzerland.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,8 @@ public class TemplatingServer extends Server {
     protected Set<Object> getJaxRsComponents() {
         Set<Object> result = super.getJaxRsComponents();
         result.add(new HtmlWriter(config));
+        result.add(new MyGraphWriter());
+        result.add(new Matchers(config));
         return result;
     }
     
