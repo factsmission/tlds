@@ -57,6 +57,7 @@ public class HtmlWriter implements MessageBodyWriter<GraphNode> {
 
     final String embeddedRdfFormat = "text/turtle";
 
+    //TODO change rawgit URI with production URI rdf2h/matchers
     final String htmlBeforeMatcherURI
             = "<!DOCTYPE html>\n"
             + "<html class=\"render\" resource=\"\" context=\"http://zz2h.zazukoians.org/modes/FullPage\">\n"
@@ -64,6 +65,7 @@ public class HtmlWriter implements MessageBodyWriter<GraphNode> {
             + "        <title>This will be replaced when the data is loaded</title>\n"
             + "        <meta charset=\"UTF-8\">\n"
             + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+            + "        <link rel=\"matchers\" href=\"https://rawgit.com/rdf2h/matchers/master/fallback-matchers.ttl\" type=\"text/turtle\" />\n"
             + "        <link rel=\"matchers\" href=\"";
 
     final String htmlAfterMatcherURI
@@ -73,7 +75,7 @@ public class HtmlWriter implements MessageBodyWriter<GraphNode> {
             + "        <script src=\"https://cdn.rawgit.com/retog/rdf-parser-n3-browser/v0.3.0b/dist/n3-parser.js\"></script>\n"
             + "        <script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n"
             + "        <script src=\"https://cdn.rawgit.com/rdf2h/ld2h/v0.4.4/dist/ld2h.js\"></script>\n"
-            + "<script id=\"data\" type=\"" + embeddedRdfFormat + "\">";
+            + "        <script id=\"data\" type=\"" + embeddedRdfFormat + "\">";
 
     final String htmlAfterRDF = "</script>\n"
             + "            \n"
