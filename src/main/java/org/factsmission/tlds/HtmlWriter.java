@@ -65,6 +65,7 @@ public class HtmlWriter implements MessageBodyWriter<GraphNode> {
             + "        <title>This will be replaced when the data is loaded</title>\n"
             + "        <meta charset=\"UTF-8\">\n"
             + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+            + "        <link rel=\"matchers\" href=\"https://rdf2h.github.io/2015/rdf2h-points.ttl\" type=\"text/turtle\" />\n"
             + "        <link rel=\"matchers\" href=\"https://rawgit.com/rdf2h/matchers/master/fallback-matchers.ttl\" type=\"text/turtle\" />\n"
             + "        <link rel=\"matchers\" href=\"";
 
