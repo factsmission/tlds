@@ -93,6 +93,7 @@ public class Matchers {
     private Graph getNamedGraph(URI matchersGraphUri) throws IOException{
         try (CloseableHttpClient httpClient = configUtils.createHttpClient()) {
             final HttpPost httpPost = new HttpPost(configUtils.getSparqlEndpointUri().getUnicodeString());
+            httpPost.setHeader("Accept", "text/turtle");
             IRI matchersGraphIri = new IRI(matchersGraphUri.toString());
             IRI translatedMatchersGraphIri = iriTranslatorProvider.getIriTranslator().reverse().translate(matchersGraphIri);
             String query = createQuery(translatedMatchersGraphIri);
