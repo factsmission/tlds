@@ -48,6 +48,7 @@ public class TemplatingServer extends Server {
         result.add(new HtmlWriter(config));
         result.add(new MyGraphWriter());
         result.add(new Matchers(config));
+        result.add(new RdfExtensionsFilter());
         return result;
     }
     
