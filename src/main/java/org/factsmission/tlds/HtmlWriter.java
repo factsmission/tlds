@@ -48,7 +48,7 @@ import solutions.linked.slds.util.IriTranslatorProvider;
  */
 @Provider
 @Produces("text/html")
-public class HtmlWriter implements MessageBodyWriter<GraphNode> {
+public class HtmlWriter implements MessageBodyWriter<Graph> {
     
     private final IriTranslatorProvider iriTranslatorProvider;
     private final GraphNode config;
@@ -60,36 +60,30 @@ public class HtmlWriter implements MessageBodyWriter<GraphNode> {
     //TODO change rawgit URI with production URI rdf2h/matchers
     final String htmlBeforeMatcherURI
             = "<!DOCTYPE html>\n"
-            + "<html class=\"render\" resource=\"\" context=\"http://zz2h.zazukoians.org/modes/FullPage\">\n"
+            + "<html class=\"render\" resource=\"\" context=\"http://rdf2h.github.io/2016/generic-rdf2h-renderers/FullPage\">\n"
             + "    <head>\n"
             + "        <title>This will be replaced when the data is loaded</title>\n"
             + "        <meta charset=\"UTF-8\">\n"
             + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-            + "        <link rel=\"matchers\" href=\"https://rdf2h.github.io/2015/rdf2h-points.ttl\" type=\"text/turtle\" />\n"
-            + "        <link rel=\"matchers\" href=\"https://rawgit.com/rdf2h/matchers/master/fallback-matchers.ttl\" type=\"text/turtle\" />\n"
-            + "        <link rel=\"matchers\" href=\"";
+            + "        <link rel=\"renderers\" href=\"https://rawgit.com/rdf2h/renderers/master/fallback-renderers.ttl\" type=\"text/turtle\" />\n"
+            + "        <link rel=\"renderers\" href=\"";
 
     final String htmlAfterMatcherURI
             = "\" type=\"text/turtle\" />\n"
-            + "        <script src=\"https://cdn.rawgit.com/rdf2h/rdf2h/v0.3.0/dist/rdf-ext.js\"></script>\n"
-            + "        <script src=\"https://cdn.rawgit.com/rdf2h/rdf2h/v0.3.0/dist/rdf2h.js\"></script>\n"
-            + "        <script src=\"https://cdn.rawgit.com/retog/rdf-parser-n3-browser/v0.3.0b/dist/n3-parser.js\"></script>\n"
             + "        <script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n"
-            + "        <script src=\"https://cdn.rawgit.com/rdf2h/ld2h/v0.4.4/dist/ld2h.js\"></script>\n"
+            + "        <script src=\"https://rawgit.com/rdf2h/ld2h/v2.0/dist/ld2h.js\"></script>\n"
             + "        <script id=\"data\" type=\"" + embeddedRdfFormat + "\">";
 
     final String htmlAfterRDF = "</script>\n"
             + "            \n"
-            + "        <script type=\"text/javascript\">\n"
-            + "$(function () {\n"
-            + "        LD2h.expand().then(function() { \n"
-            + "            console.log(\"finsihed expanding\");\n"
-            + "        });\n"
-            + "});\n"
-            + "        </script>\n"
             + "    </head>\n"
             + "    <body>\n"
             + "This will be replaced by rendered RDF.\n"
+            + "        <script type=\"text/javascript\">\n"
+            + "        LD2h.expand().then(function() { \n"
+            + "            console.log(\"finsihed expanding\");\n"
+            + "        });\n"
+            + "        </script>\n"
             + "    </body>\n"
             + "</html>";
 
@@ -101,35 +95,31 @@ public class HtmlWriter implements MessageBodyWriter<GraphNode> {
     @Override
     public boolean isWriteable(Class<?> type, Type genericType,
             Annotation[] annotations, MediaType mediaType) {
-        return GraphNode.class.isAssignableFrom(type) && MediaType.TEXT_HTML_TYPE.isCompatible(mediaType);
+        return Graph.class.isAssignableFrom(type) && MediaType.TEXT_HTML_TYPE.isCompatible(mediaType);
     }
 
     @Override
-    public long getSize(GraphNode t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
+    public long getSize(Graph t, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
         return -1;
     }
 
     @Override
-    public void writeTo(GraphNode t, Class<?> type, Type genericType,
+    public void writeTo(Graph t, Class<?> type, Type genericType,
             Annotation[] annotations, MediaType mediaType,
             MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
         entityStream.write(htmlBeforeMatcherURI.getBytes("utf-8"));
-        entityStream.write(matcherURI(t).getBytes("utf-8"));
+        //entityStream.write(matcherURI(t).getBytes("utf-8"));
+        entityStream.write("/renderers.ttl".getBytes("utf-8"));
         entityStream.write(htmlAfterMatcherURI.getBytes("utf-8"));
-        serializer.serialize(entityStream, getGraph(t), embeddedRdfFormat);
+        serializer.serialize(entityStream, t, embeddedRdfFormat);
         entityStream.write(htmlAfterRDF.getBytes("utf-8"));
         entityStream.flush();
     }
 
-    protected Graph getGraph(GraphNode t) {
-        //TODO version that return context plus recurisvely the context of 
-        // URIs in the context that differ only by their hash tag
-        return t.getGraph();
-    }
     
     protected String matcherURI(GraphNode t) {
         IRI iri = (IRI) t.getNode();
-        final URI matchersGraphUri = UriBuilder.fromUri(iri.getUnicodeString()).replacePath("/matchers/ttl").build();
+        final URI matchersGraphUri = UriBuilder.fromUri(iri.getUnicodeString()).replacePath("/matchers.ttl").build();
         IriTranslator translator = iriTranslatorProvider.getIriTranslator().reverse();
         IRI matcherIri = new IRI(matchersGraphUri.toString());
         IRI translated = translator.reverse().translate(matcherIri);
