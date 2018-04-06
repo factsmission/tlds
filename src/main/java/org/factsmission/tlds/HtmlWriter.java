@@ -71,7 +71,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
     final String htmlAfterMatcherURI
             = "\" type=\"text/turtle\" />\n"
             + "        <script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n"
-            + "        <script src=\"https://rawgit.com/rdf2h/ld2h/v2.0/dist/ld2h.js\"></script>\n"
+            + "        <script src=\"http://rdf2h.github.io/ld2h/latest/ld2h.js\"></script>\n"
             + "        <script id=\"data\" type=\"" + embeddedRdfFormat + "\">";
 
     final String htmlAfterRDF = "</script>\n"
@@ -108,22 +108,11 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             Annotation[] annotations, MediaType mediaType,
             MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
         entityStream.write(htmlBeforeMatcherURI.getBytes("utf-8"));
-        //entityStream.write(matcherURI(t).getBytes("utf-8"));
         entityStream.write("/renderers.ttl".getBytes("utf-8"));
         entityStream.write(htmlAfterMatcherURI.getBytes("utf-8"));
         serializer.serialize(entityStream, t, embeddedRdfFormat);
         entityStream.write(htmlAfterRDF.getBytes("utf-8"));
         entityStream.flush();
-    }
-
-    
-    protected String matcherURI(GraphNode t) {
-        IRI iri = (IRI) t.getNode();
-        final URI matchersGraphUri = UriBuilder.fromUri(iri.getUnicodeString()).replacePath("/matchers.ttl").build();
-        IriTranslator translator = iriTranslatorProvider.getIriTranslator().reverse();
-        IRI matcherIri = new IRI(matchersGraphUri.toString());
-        IRI translated = translator.reverse().translate(matcherIri);
-        return translated.getUnicodeString();
     }
 
 }
