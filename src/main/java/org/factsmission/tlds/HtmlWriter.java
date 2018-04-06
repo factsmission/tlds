@@ -27,20 +27,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.net.URI;
+
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
+
 import org.apache.clerezza.commons.rdf.Graph;
-import org.apache.clerezza.commons.rdf.IRI;
 import org.apache.clerezza.rdf.core.serializedform.Serializer;
 import org.apache.clerezza.rdf.utils.GraphNode;
-import solutions.linked.slds.translation.IriTranslator;
-import solutions.linked.slds.util.IriTranslatorProvider;
+
 
 /**
  *
@@ -50,8 +48,6 @@ import solutions.linked.slds.util.IriTranslatorProvider;
 @Produces("text/html")
 public class HtmlWriter implements MessageBodyWriter<Graph> {
     
-    private final IriTranslatorProvider iriTranslatorProvider;
-    private final GraphNode config;
 
     final Serializer serializer = Serializer.getInstance();
 
@@ -88,8 +84,6 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             + "</html>";
 
     HtmlWriter(GraphNode config) {
-        this.config = config;
-        this.iriTranslatorProvider = new IriTranslatorProvider(config);
     }
 
     @Override

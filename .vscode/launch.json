@@ -13,7 +13,7 @@
             "stopOnEntry": false,
             "mainClass": "org.factsmission.tlds.TemplatingServer",
             "projectName": "tlds",
-            "args": "../slds/wikidata-config.ttl"
+            "args": "cldi-config.ttl"
         },
         {
             "type": "java",
