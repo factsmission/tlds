@@ -67,7 +67,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
     final String htmlAfterMatcherURI
             = "\" type=\"text/turtle\" />\n"
             + "        <script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n"
-            + "        <script src=\"http://rdf2h.github.io/ld2h/latest/ld2h.js\"></script>\n"
+            + "        <script src=\"https://rdf2h.github.io/ld2h/latest/ld2h.js\"></script>\n"
             + "        <script id=\"data\" type=\"" + embeddedRdfFormat + "\">";
 
     final String htmlAfterRDF = "</script>\n"
