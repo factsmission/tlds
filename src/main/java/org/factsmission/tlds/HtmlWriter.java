@@ -61,7 +61,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             + "        <title>This will be replaced when the data is loaded</title>\n"
             + "        <meta charset=\"UTF-8\">\n"
             + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-            + "        <link rel=\"renderers\" href=\"https://rawgit.com/rdf2h/renderers/master/fallback-renderers.ttl\" type=\"text/turtle\" />\n"
+            + "        <link rel=\"renderers\" href=\"https://rdf2h.github.io/renderers/latest/fallback-renderers.ttl\" type=\"text/turtle\" />\n"
             + "        <link rel=\"renderers\" href=\"";
 
     final String htmlAfterMatcherURI
@@ -77,7 +77,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             + "This will be replaced by rendered RDF.\n"
             + "        <script type=\"text/javascript\">\n"
             + "        LD2h.expand().then(function() { \n"
-            + "            console.log(\"finsihed expanding\");\n"
+            + "            console.log(\"finished expanding\");\n"
             + "        });\n"
             + "        </script>\n"
             + "    </body>\n"
