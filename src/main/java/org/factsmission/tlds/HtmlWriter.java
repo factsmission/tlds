@@ -60,13 +60,14 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             + "        <title>This will be replaced when the data is loaded</title>\n"
             + "        <meta charset=\"UTF-8\">\n"
             + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-            + "        <link rel=\"renderers\" href=\"https://rdf2h.github.io/renderers/latest/fallback-renderers.ttl\" type=\"text/turtle\" />\n"
+            + "        <link rel=\"renderers\" href=\"https://rdf2h.github.io/renderers/0.0.1/fallback-renderers.ttl\" type=\"text/turtle\" />\n"
             + "        <link rel=\"renderers\" href=\"";
 
     final String htmlAfterMatcherURI
             = "\" type=\"text/turtle\" />\n"
             + "        <script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n"
-            + "        <script src=\"https://rdf2h.github.io/ld2h/latest/ld2h.js\"></script>\n"
+            + "        <script src=\"https://retog.github.io/ext-rdflib/0.2.0/rdf.js\"></script>\n"
+            + "        <script src=\"https://rdf2h.github.io/ld2h/2.1.0/ld2h.js\"></script>\n"
             + "        <script id=\"data\" type=\"" + embeddedRdfFormat + "\">";
 
     final String htmlAfterRDF = "</script>\n"
