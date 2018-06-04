@@ -53,7 +53,6 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
 
     final String embeddedRdfFormat = "text/turtle";
 
-    //TODO change rawgit URI with production URI rdf2h/matchers
     final String htmlBeforeMatcherURI
             = "<!DOCTYPE html>\n"
             + "<html class=\"render\" resource=\"\" context=\"http://rdf2h.github.io/2016/generic-rdf2h-renderers/FullPage\">\n"
