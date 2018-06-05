@@ -67,7 +67,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             = "\" type=\"text/turtle\" />\n"
             + "        <script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n"
             + "        <script src=\"https://retog.github.io/ext-rdflib/0.2.0/rdf.js\"></script>\n"
-            + "        <script src=\"https://rdf2h.github.io/ld2h/2.1.0/ld2h.js\"></script>\n"
+            + "        <script src=\"https://rdf2h.github.io/ld2h/2.1.1/ld2h.js\"></script>\n"
             + "        <script id=\"data\" type=\"" + embeddedRdfFormat + "\">";
 
     final String htmlAfterRDF = "</script>\n"
