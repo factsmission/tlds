@@ -1,0 +1,15 @@
+@prefix slds: <http://vocab.linked.solutions/slds#> .
+@prefix lg: <http://linked.guru/ontology#> .
+
+<>
+    slds:port 5000 ;
+    slds:sparqlEndpoint <https://farewellutopia.com/sparql> ;
+    slds:iriTranslators (
+        [
+            slds:backendPrefix "https://farewellutopia.com/";
+            slds:frontendPrefix "http://localhost:5000/"
+        ]
+        [
+            slds:backendPrefix "http://publication.plazi.org/";
+            slds:frontendPrefix "http://127.0.0.1:5000/"
+        ]) .

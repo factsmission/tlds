@@ -6,6 +6,28 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Debug (Launch)-farewellutopia config>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "org.factsmission.tlds.TemplatingServer",
+            "projectName": "tlds",
+            "args": "farewellutopia-config.ttl"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PSPS config>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "org.factsmission.tlds.TemplatingServer",
+            "projectName": "tlds",
+            "args": "../psps-config.ttl"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch)-TemplatingServer<tlds>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
