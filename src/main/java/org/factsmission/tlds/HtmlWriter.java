@@ -108,7 +108,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             Annotation[] annotations, MediaType mediaType,
             MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
         entityStream.write(htmlBeforeMatcherURI.getBytes("utf-8"));
-        entityStream.write("/renderers.ttl".getBytes("utf-8"));
+        entityStream.write("/renderers".getBytes("utf-8"));
         entityStream.write(htmlAfterMatcherURI.getBytes("utf-8"));
         serializer.serialize(entityStream, graph, embeddedRdfFormat);
         entityStream.write(htmlAfterRDF.getBytes("utf-8"));
