@@ -25,6 +25,8 @@ package org.factsmission.tlds;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
@@ -35,7 +37,10 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
+import org.apache.clerezza.commons.rdf.BlankNode;
+import org.apache.clerezza.commons.rdf.BlankNodeOrIRI;
 import org.apache.clerezza.commons.rdf.Graph;
+import org.apache.clerezza.commons.rdf.Triple;
 import org.apache.clerezza.rdf.core.serializedform.Serializer;
 import org.apache.clerezza.rdf.utils.GraphNode;
 
@@ -51,7 +56,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
 
     final Serializer serializer = Serializer.getInstance();
 
-    final String embeddedRdfFormat = "text/turtle";
+    final String embeddedRdfFormat = "text/html";
 
     final String htmlBeforeMatcherURI
             = "<!DOCTYPE html>\n"
@@ -66,14 +71,14 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
     final String htmlAfterMatcherURI
             = "\" type=\"text/turtle\" />\n"
             + "        <script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n"
-            + "        <script src=\"https://retog.github.io/ext-rdflib/0.2.0/rdf.js\"></script>\n"
-            + "        <script src=\"https://rdf2h.github.io/ld2h/2.1.1/ld2h.js\"></script>\n"
-            + "        <script id=\"data\" type=\"" + embeddedRdfFormat + "\">";
-
-    final String htmlAfterRDF = "</script>\n"
-            + "            \n"
+            + "        <script src=\"https://retog.github.io/ext-rdflib/0.2.1/rdf.js\"></script>\n"
+            + "        <script src=\"https://rdf2h.github.io/ld2h/2.1.2/ld2h.js\"></script>\n"
             + "    </head>\n"
             + "    <body>\n"
+            + "        <div id=\"data\" type=\"" + embeddedRdfFormat + "\">";
+
+    final String htmlAfterRDF = "</div>\n"
+            + "            \n"
             + "This will be replaced by rendered RDF.\n"
             + "        <script type=\"text/javascript\">\n"
             + "        LD2h.expand().then(function() { \n"
@@ -84,6 +89,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             + "</html>";
 
     HtmlWriter(GraphNode config) {
+        serializer.bindSerializingProvider(new RDFaSerializer());
     }
 
     @Override
@@ -98,15 +104,16 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
     }
 
     @Override
-    public void writeTo(Graph t, Class<?> type, Type genericType,
+    public void writeTo(Graph graph, Class<?> type, Type genericType,
             Annotation[] annotations, MediaType mediaType,
             MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
         entityStream.write(htmlBeforeMatcherURI.getBytes("utf-8"));
         entityStream.write("/renderers.ttl".getBytes("utf-8"));
         entityStream.write(htmlAfterMatcherURI.getBytes("utf-8"));
-        serializer.serialize(entityStream, t, embeddedRdfFormat);
+        serializer.serialize(entityStream, graph, embeddedRdfFormat);
         entityStream.write(htmlAfterRDF.getBytes("utf-8"));
         entityStream.flush();
     }
+
 
 }
