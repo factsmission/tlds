@@ -74,23 +74,24 @@ public class RDFaSerializer implements SerializingProvider {
         Set<BlankNodeOrIRI> otherSubjects = new HashSet<>();
         otherSubjects.addAll(subjects);
         otherSubjects.removeAll(exclusiveSubjects);
-        printResources(exclusiveSubjects, graph, out);
-        printResources(otherSubjects, graph, out);
+        Map<BlankNode, String> bNodeLabels = new HashMap<>();
+        printResources(exclusiveSubjects, graph, bNodeLabels, out);
+        printResources(otherSubjects, graph, bNodeLabels, out);
         out.flush();;
     }
     
     
-	private void printResources(Collection<BlankNodeOrIRI> nodes, Graph graph, PrintWriter out) {
+	private void printResources(Collection<BlankNodeOrIRI> nodes, Graph graph, Map<BlankNode, String> bNodeLabels, PrintWriter out) {
         for (BlankNodeOrIRI node : nodes) {
-            out.println("<div about='"+getLabel(node)+"' >");
-            printProperties(node, graph, out);
+            out.println("<div about='"+getLabel(node, bNodeLabels)+"' >");
+            printProperties(node, graph, bNodeLabels, out);
             out.println("</div>");
         }
         
 	}
 
 
-	private void printProperties(BlankNodeOrIRI node, Graph graph, PrintWriter out) {
+	private void printProperties(BlankNodeOrIRI node, Graph graph, Map<BlankNode, String> bNodeLabels, PrintWriter out) {
         Iterator<Triple> matches =  graph.filter(node, null, null);
         Map<IRI,Set<RDFTerm>> propertyValuesMap = new HashMap<>();
         while (matches.hasNext()) {
@@ -109,9 +110,9 @@ public class RDFaSerializer implements SerializingProvider {
             out.println("<ul>");
             for (RDFTerm object : e.getValue()) {
                 if (object instanceof BlankNodeOrIRI) {
-                    out.println("<a property=\""+getLabel(e.getKey())+"\" resource="+getLabel((BlankNodeOrIRI) object)+">"+getLabel((BlankNodeOrIRI) object)+"</a>");
+                    out.println("<a property=\""+getLabel(e.getKey(), bNodeLabels)+"\" resource="+getLabel((BlankNodeOrIRI) object, bNodeLabels)+">"+getLabel((BlankNodeOrIRI) object, bNodeLabels)+"</a>");
                 } else {
-                    out.println("<span datatype=\""+((Literal)object).getDataType().getUnicodeString()+"\" property=\""+getLabel(e.getKey())+"\">"+((Literal)object).getLexicalForm()+"</span>");
+                    out.println("<span datatype=\""+((Literal)object).getDataType().getUnicodeString()+"\" property=\""+getLabel(e.getKey(), bNodeLabels)+"\">"+((Literal)object).getLexicalForm()+"</span>");
                 }
             }
             out.println("</ul>");
@@ -121,8 +122,15 @@ public class RDFaSerializer implements SerializingProvider {
 	}
 
 
-	private String getLabel(BlankNodeOrIRI node) {
-		return node instanceof BlankNode? "_:"+node.toString() : ((IRI)node).getUnicodeString();
+	private String getLabel(BlankNodeOrIRI node, Map<BlankNode, String> bNodeLabels) {
+		return node instanceof BlankNode? getLabel((BlankNode)node, bNodeLabels) : ((IRI)node).getUnicodeString();
+    }
+    
+    private String getLabel(BlankNode node, Map<BlankNode, String> bNodeLabels) {
+        if (!bNodeLabels.containsKey(node)) {
+            bNodeLabels.put(node, "_:"+bNodeLabels.size());
+        }
+		return bNodeLabels.get(node);
 	}
 
 }
