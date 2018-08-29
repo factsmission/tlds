@@ -27,8 +27,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -40,6 +44,8 @@ import javax.ws.rs.ext.Provider;
 import org.apache.clerezza.commons.rdf.BlankNode;
 import org.apache.clerezza.commons.rdf.BlankNodeOrIRI;
 import org.apache.clerezza.commons.rdf.Graph;
+import org.apache.clerezza.commons.rdf.Literal;
+import org.apache.clerezza.commons.rdf.RDFTerm;
 import org.apache.clerezza.commons.rdf.Triple;
 import org.apache.clerezza.rdf.core.serializedform.Serializer;
 import org.apache.clerezza.rdf.utils.GraphNode;
@@ -88,7 +94,23 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             + "    </body>\n"
             + "</html>";
 
+    private GraphNode config;
+    private List<String> renderers = new ArrayList<>();
+
     HtmlWriter(GraphNode config) {
+        this.config = config;
+        Iterator<GraphNode> renderersListIter = config.getObjectNodes(TLDS.renderers);
+        if (renderersListIter.hasNext()) {
+            while (renderersListIter.hasNext()) {
+                List<RDFTerm> list = renderersListIter.next().asList();
+                for (RDFTerm term : list) {
+                    if (!(term instanceof Literal)) {
+                        throw new RuntimeException();
+                    }
+                    renderers.add(((Literal)term).getLexicalForm());
+                }
+            }
+        }
         serializer.bindSerializingProvider(new RDFaSerializer());
     }
 
@@ -107,12 +129,16 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
     public void writeTo(Graph graph, Class<?> type, Type genericType,
             Annotation[] annotations, MediaType mediaType,
             MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
-        entityStream.write(htmlBeforeMatcherURI.getBytes("utf-8"));
-        entityStream.write("/renderers".getBytes("utf-8"));
-        entityStream.write(htmlAfterMatcherURI.getBytes("utf-8"));
+        Writer entityWriter = new OutputStreamWriter(entityStream, "utf-8");
+        entityWriter.write(htmlBeforeMatcherURI);
+        for (String renderer : renderers) { 
+            entityWriter.write("<link rel=\"renderers\" href=\""+renderer+"\" />\n");
+        }
+        entityWriter.write(htmlAfterMatcherURI);
+        entityWriter.flush();
         serializer.serialize(entityStream, graph, embeddedRdfFormat);
-        entityStream.write(htmlAfterRDF.getBytes("utf-8"));
-        entityStream.flush();
+        entityWriter.write(htmlAfterRDF);
+        entityWriter.flush();
     }
 
 
