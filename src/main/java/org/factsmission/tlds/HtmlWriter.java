@@ -70,8 +70,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             + "    <head>\n"
             + "        <title>This will be replaced when the data is loaded</title>\n"
             + "        <meta charset=\"UTF-8\">\n"
-            + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-            + "        <link rel=\"renderers\" href=\"https://rdf2h.github.io/renderers/0.0.1/fallback-renderers.ttl\" type=\"text/turtle\" />\n";
+            + "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n";
 
     final String htmlAfterMatcherURI
             = "        <script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n"
@@ -130,7 +129,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
         Writer entityWriter = new OutputStreamWriter(entityStream, "utf-8");
         entityWriter.write(htmlBeforeMatcherURI);
         for (String renderer : renderers) { 
-            entityWriter.write("        <link rel=\"renderers\" href=\""+renderer+"\" />\n");
+            entityWriter.write("        <link rel=\"renderers\" href=\""+renderer+"\" type=\"text/turtle\" />\n");
         }
         entityWriter.write(htmlAfterMatcherURI);
         entityWriter.flush();
