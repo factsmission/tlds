@@ -106,8 +106,8 @@ public class RDFaSerializer implements SerializingProvider {
             values.add(t.getObject());    
         }
         for (Map.Entry<IRI,Set<RDFTerm>> e : propertyValuesMap.entrySet()) {
-            out.println("<li >");
             out.println("<ul>");
+            out.println("<li>");
             for (RDFTerm object : e.getValue()) {
                 if (object instanceof BlankNodeOrIRI) {
                     out.println("<a property=\""+getLabel(e.getKey(), bNodeLabels)+"\" resource="+getLabel((BlankNodeOrIRI) object, bNodeLabels)+">"+getLabel((BlankNodeOrIRI) object, bNodeLabels)+"</a>");
@@ -115,8 +115,8 @@ public class RDFaSerializer implements SerializingProvider {
                     out.println("<span datatype=\""+((Literal)object).getDataType().getUnicodeString()+"\" property=\""+getLabel(e.getKey(), bNodeLabels)+"\">"+((Literal)object).getLexicalForm()+"</span>");
                 }
             }
-            out.println("</ul>");
             out.println("</li>");
+            out.println("</ul>");
         }
         
 	}
