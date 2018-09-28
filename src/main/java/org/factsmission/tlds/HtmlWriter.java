@@ -74,8 +74,8 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
 
     final String htmlAfterMatcherURI
             = "        <script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n"
-            + "        <script src=\"https://retog.github.io/ext-rdflib/0.2.1/rdf.js\"></script>\n"
-            + "        <script src=\"https://rdf2h.github.io/ld2h/2.1.3/ld2h.js\"></script>\n"
+            + "        <script src=\"https://retog.github.io/ext-rdflib/0.2.2/rdf.js\"></script>\n"
+            + "        <script src=\"https://rdf2h.github.io/ld2h/2.1.5/ld2h.js\"></script>\n"
             + "    </head>\n"
             + "    <body>\n"
             + "        <div id=\"data\" type=\"" + embeddedRdfFormat + "\">";
