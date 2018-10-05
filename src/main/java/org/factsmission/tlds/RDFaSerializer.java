@@ -110,7 +110,7 @@ public class RDFaSerializer implements SerializingProvider {
             out.println("<li>");
             for (RDFTerm object : e.getValue()) {
                 if (object instanceof BlankNodeOrIRI) {
-                    out.println("<a property=\""+getLabel(e.getKey(), bNodeLabels)+"\" resource="+getLabel((BlankNodeOrIRI) object, bNodeLabels)+">"+getLabel((BlankNodeOrIRI) object, bNodeLabels)+"</a>");
+                    out.println("<a property=\""+getLabel(e.getKey(), bNodeLabels)+"\" resource=\""+getLabel((BlankNodeOrIRI) object, bNodeLabels)+"\">"+getLabel((BlankNodeOrIRI) object, bNodeLabels)+"</a>");
                 } else {
                     out.println("<span datatype=\""+((Literal)object).getDataType().getUnicodeString()+"\" property=\""+getLabel(e.getKey(), bNodeLabels)+"\">"+((Literal)object).getLexicalForm()+"</span>");
                 }
