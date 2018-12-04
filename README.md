@@ -8,6 +8,19 @@ of the resource. The HTML rendering is done client-side with [LD2h](https://gith
 The RDF2h renderers are taken from URIs that can be specified with the 
 `tlds:renderers` property in the configuration.
 
-Tlds is build and used analogously to [slds](https://github.com/linked-solutions/slds). 
-Note that because this depends on an slds SNAPSHOT version you need to compile 
-that first (using `mvn install`)
+# Build / install
+
+In the directory containing tlds run
+```
+   mvn install -P executable
+```
+
+Note that because this depends on an slds SNAPSHOT version you need to compile that first:
+
+> In the directory containing slds run
+> ```
+>    mvn install -P executable
+> ```
+
+
+Tlds is build and used analogously to [slds](https://github.com/linked-solutions/slds).
