@@ -4,7 +4,7 @@
 
 <>
     slds:port 5000 ;
-    tlds:renderers ("https://rdf2h.github.io/renderers/0.0.2/fallback-renderers.ttl" "https://rawgit.com/rdf2h/renderers/master/schema-org-renderers.ttl" "/renderers");
+    tlds:renderers ("https://rdf2h.github.io/renderers/0.0.3/fallback-renderers.ttl" "https://rawgit.com/rdf2h/renderers/master/schema-org-renderers.ttl" "/renderers");
     slds:resourceDescriptionProvider [
         slds:javaClass "solutions.linked.slds.providers.GraphAndContext";
         slds:sparqlEndpoint <https://farewellutopia.com/sparql> ;
