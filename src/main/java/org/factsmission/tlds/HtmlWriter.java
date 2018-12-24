@@ -116,6 +116,9 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             "        \"<a href='https://github.com/linked-solutions/tlds'>TLDS</a>\" +\n" +
             "        \" project.</p>\";\n" +
             "    div.style.backgroundColor = \"#ffbbbb\";\n" +
+            "    div.style.margin = \"3px\";\n" +
+            "    div.style.border = \"2px solid grey\";\n" +
+            "    div.style.padding = \"15px\";\n" +
             "    div.style.fontSize = \"1.2em\";\n" +
             "    document.body.prepend(div);\n" +
             "}"
