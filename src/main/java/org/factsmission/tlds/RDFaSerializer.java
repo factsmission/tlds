@@ -84,6 +84,7 @@ public class RDFaSerializer implements SerializingProvider {
 	private void printResources(Collection<BlankNodeOrIRI> nodes, Graph graph, Map<BlankNode, String> bNodeLabels, PrintWriter out) {
         for (BlankNodeOrIRI node : nodes) {
             out.println("<div about='"+getLabel(node, bNodeLabels)+"' >");
+            out.println("    <h1>"+getLabel(node, bNodeLabels)+"</h1>");
             printProperties(node, graph, bNodeLabels, out);
             out.println("</div>");
         }
@@ -105,19 +106,25 @@ public class RDFaSerializer implements SerializingProvider {
                                     }).get();
             values.add(t.getObject());    
         }
+        
+        out.println("    <table>");
         for (Map.Entry<IRI,Set<RDFTerm>> e : propertyValuesMap.entrySet()) {
-            out.println("<ul>");
-            out.println("<li>");
+            out.println("        <tr>");
+            out.println("            <td>");
+            out.println("                <a href='"+getLabel(e.getKey(), bNodeLabels)+"'>"+getLabel(e.getKey(), bNodeLabels)+"</a>");
+            out.println("            </td>");
             for (RDFTerm object : e.getValue()) {
                 if (object instanceof BlankNodeOrIRI) {
-                    out.println("<a property=\""+getLabel(e.getKey(), bNodeLabels)+"\" resource=\""+getLabel((BlankNodeOrIRI) object, bNodeLabels)+"\">"+getLabel((BlankNodeOrIRI) object, bNodeLabels)+"</a>");
+                    out.println("            <td>");
+                    out.println("                <a property='"+getLabel(e.getKey(), bNodeLabels)+"' resource='"+getLabel((BlankNodeOrIRI) object, bNodeLabels)+"' href='"+getLabel((BlankNodeOrIRI) object, bNodeLabels)+"'>"+getLabel((BlankNodeOrIRI) object, bNodeLabels)+"</a>");
+                    out.println("            </td>");
                 } else {
-                    out.println("<span datatype=\""+((Literal)object).getDataType().getUnicodeString()+"\" property=\""+getLabel(e.getKey(), bNodeLabels)+"\">"+((Literal)object).getLexicalForm()+"</span>");
+                    out.println("            <td datatype='"+((Literal)object).getDataType().getUnicodeString()+"' property='"+getLabel(e.getKey(), bNodeLabels)+"'>"+((Literal)object).getLexicalForm()+"</td>");
                 }
             }
-            out.println("</li>");
-            out.println("</ul>");
+            out.println("        </tr>");
         }
+        out.println("    </table>");
         
 	}
 
