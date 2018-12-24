@@ -83,10 +83,42 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
     final String htmlAfterRDF = "</div>\n"
             + "            \n"
             + "This will be replaced by rendered RDF.\n"
-            + "        <script type=\"text/javascript\">\n"
-            + "        LD2h.expand().then(function() { \n"
-            + "            console.log(\"finished expanding\");\n"
-            + "        });\n"
+            + "        <script type=\"text/javascript\">\n" +
+            "try {\n" +
+            "    LD2h.expand().then(function () {\n" +
+            "        console.log(\"finished expanding\");\n" +
+            "    });\n" +
+            "} catch (e) {\n" +
+            "    navigator.sayswho = (function () {\n" +
+            "        var ua = navigator.userAgent, tem,\n" +
+            "            M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\\/))\\/?\\s*(\\d+)/i) || [];\n" +
+            "        if (/trident/i.test(M[1])) {\n" +
+            "            tem = /\\brv[ :]+(\\d+)/g.exec(ua) || [];\n" +
+            "            return 'IE ' + (tem[1] || '');\n" +
+            "        }\n" +
+            "        if (M[1] === 'Chrome') {\n" +
+            "            tem = ua.match(/\\b(OPR|Edge)\\/(\\d+)/);\n" +
+            "            if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');\n" +
+            "        }\n" +
+            "        M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];\n" +
+            "        if ((tem = ua.match(/version\\/(\\d+)/i)) != null) M.splice(1, 1, tem[1]);\n" +
+            "        return M.join(' ');\n" +
+            "    })();\n" +
+            "    var div = document.createElement(\"div\");\n" +
+            "    var host = window.location.hostname;\n" +
+            "    var client = navigator.sayswho;\n" +
+            "    div.innerHTML = \"<p>We at \" +\n" +
+            "        host +\n" +
+            "        \" value diversity and try to be as inclusive as possible by endorsing open standards to support all kind of devices and be accessible to people with different abilities.\" +\n" +
+            "        \"</p><p> However it seems that we're experiencing a problem rendering this page correctly with \" +\n" +
+            "        client +\n" +
+            "        \". The software running this site is fully open source, maybe you could help improving it to support your browser as well? Check out the \" +\n" +
+            "        \"<a href='https://github.com/linked-solutions/tlds'>TLDS</a>\" +\n" +
+            "        \" project.</p>\";\n" +
+            "    div.style.backgroundColor = \"#ffbbbb\";\n" +
+            "    div.style.fontSize = \"1.2em\";\n" +
+            "    document.body.prepend(div);\n" +
+            "}"
             + "        </script>\n"
             + "    </body>\n"
             + "</html>";
