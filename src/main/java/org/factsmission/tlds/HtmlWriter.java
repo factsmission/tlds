@@ -120,7 +120,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             "    div.style.border = \"2px solid grey\";\n" +
             "    div.style.padding = \"15px\";\n" +
             "    div.style.fontSize = \"1.2em\";\n" +
-            "    document.body.prepend(div);\n" +
+            "    document.body.insertBefore(div, document.body.firstChild);\n" +
             "}"
             + "        </script>\n"
             + "    </body>\n"
