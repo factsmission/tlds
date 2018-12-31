@@ -76,6 +76,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             = "        <script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n"
             + "        <script src=\"https://retog.github.io/ext-rdflib/0.3.5/rdf.js\"></script>\n"
             + "        <script src=\"https://rdf2h.github.io/ld2h/2.2.0/ld2h.js\"></script>\n"
+            + "        <style type=\"text/css\">table { border-collapse: collapse; } td { border: 1px solid #aaaaaa; padding: 4px;}</style>"
             + "    </head>\n"
             + "    <body>\n"
             + "        <div id=\"data\" type=\"" + embeddedRdfFormat + "\">";
