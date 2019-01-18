@@ -49,4 +49,4 @@ The image will launch tlds with `/config.ttl` as configuration by default. The e
 Same as [slds](https://github.com/linked-solutions/slds) with the addition of the `tlds:renderers` property.
 For example the configuration could have the following addition:
 
-    tlds:renderers ("https://rdf2h.github.io/renderers/0.0.3/fallback-renderers.ttl" "/renderers.ttl"
+    tlds:renderers ("https://rdf2h.github.io/renderers/0.0.3/fallback-renderers.ttl" "/renderers.ttl")
