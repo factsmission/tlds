@@ -170,6 +170,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
         entityWriter.write(htmlAfterMatcherURI);
         entityWriter.flush();
         serializer.serialize(entityStream, graph, embeddedRdfFormat);
+        entityStream.flush();
         entityWriter.write(htmlAfterRDF);
         entityWriter.flush();
     }
