@@ -127,6 +127,7 @@ public class RDFaSerializer implements SerializingProvider {
             }).collect(Collectors.toList())));
             out.println("            </td>");
             out.println("        </tr>");
+            out.flush();
         }
 
     }
