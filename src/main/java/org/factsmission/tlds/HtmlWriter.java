@@ -76,53 +76,68 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
             = "        <script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n"
             + "        <script src=\"https://retog.github.io/ext-rdflib/0.3.5/rdf.js\"></script>\n"
             + "        <script src=\"https://rdf2h.github.io/ld2h/2.2.0/ld2h.js\"></script>\n"
-            + "        <style type=\"text/css\">table { border-collapse: collapse; } td { border: 1px solid #aaaaaa; padding: 4px;}</style>"
+            + "        <style type=\"text/css\">table { border-collapse: collapse; } td { border: 1px solid #aaaaaa; padding: 4px;} .spinner {width:80px;height:80px;margin:auto;border-radius:50%;border: 1px solid #ECEFF1;border-left: 1px solid #008e76;-webkit-transform: translateZ(0);-ms-transform: translateZ(0);transform: translateZ(0);-webkit-animation: spin 1.1s infinite linear;animation: spin 1.1s infinite linear;} @keyframes spin {0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg);}}</style>"
             + "    </head>\n"
             + "    <body>\n"
-            + "        <div id=\"data\" type=\"" + embeddedRdfFormat + "\">";
+            + "        <script type=\"text/javascript\">\n"
+            + "function createClass(name,rules){\n"
+            + "    var style = document.createElement('style');\n"
+            + "    style.type = 'text/css';\n"
+            + "    document.getElementsByTagName('head')[0].appendChild(style);\n"
+            + "    if(!(style.sheet||{}).insertRule) \n"
+            + "        (style.styleSheet || style.sheet).addRule(name, rules);\n"
+            + "    else\n"
+            + "        style.sheet.insertRule(name+\"{\"+rules+\"}\",0);\n"
+            + "}\n"
+            + "createClass('#data','display:none');\n"
+            + "var spinner = document.createElement('div');\n"
+            + "spinner.classList = 'spinner';\n"
+            + "document.body.insertBefore(spinner, document.body.firstChild);"
+            + "        </script>\n"
+            + "        <div id=\"data\" type=\"" + embeddedRdfFormat + "\">\n";
 
-    final String htmlAfterRDF = "</div>\n"
-            + "            \n"
-            + "This will be replaced by rendered RDF.\n"
-            + "        <script type=\"text/javascript\">\n" +
-            "try {\n" +
-            "    LD2h.expand().then(function () {\n" +
-            "        console.log(\"finished expanding\");\n" +
-            "    });\n" +
-            "} catch (e) {\n" +
-            "    navigator.sayswho = (function () {\n" +
-            "        var ua = navigator.userAgent, tem,\n" +
-            "            M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\\/))\\/?\\s*(\\d+)/i) || [];\n" +
-            "        if (/trident/i.test(M[1])) {\n" +
-            "            tem = /\\brv[ :]+(\\d+)/g.exec(ua) || [];\n" +
-            "            return 'IE ' + (tem[1] || '');\n" +
-            "        }\n" +
-            "        if (M[1] === 'Chrome') {\n" +
-            "            tem = ua.match(/\\b(OPR|Edge)\\/(\\d+)/);\n" +
-            "            if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');\n" +
-            "        }\n" +
-            "        M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];\n" +
-            "        if ((tem = ua.match(/version\\/(\\d+)/i)) != null) M.splice(1, 1, tem[1]);\n" +
-            "        return M.join(' ');\n" +
-            "    })();\n" +
-            "    var div = document.createElement(\"div\");\n" +
-            "    var host = window.location.hostname;\n" +
-            "    var client = navigator.sayswho;\n" +
-            "    div.innerHTML = \"<p>We at \" +\n" +
-            "        host +\n" +
-            "        \" value diversity and try to be as inclusive as possible by endorsing open standards to support all kind of devices and be accessible to people with different abilities.\" +\n" +
-            "        \"</p><p> However it seems that we're experiencing a problem rendering this page correctly with \" +\n" +
-            "        client +\n" +
-            "        \". The software running this site is fully open source, maybe you could help improving it to support your browser as well? Check out the \" +\n" +
-            "        \"<a href='https://github.com/linked-solutions/tlds'>TLDS</a>\" +\n" +
-            "        \" project.</p>\";\n" +
-            "    div.style.backgroundColor = \"#ffbbbb\";\n" +
-            "    div.style.margin = \"3px\";\n" +
-            "    div.style.border = \"2px solid grey\";\n" +
-            "    div.style.padding = \"15px\";\n" +
-            "    div.style.fontSize = \"1.2em\";\n" +
-            "    document.body.insertBefore(div, document.body.firstChild);\n" +
-            "}"
+    final String htmlAfterRDF = "        </div>\n"
+            + "        <script type=\"text/javascript\">\n"
+            + "try {\n"
+            + "    LD2h.expand().then(function () {\n"
+            + "        console.log(\"finished expanding\");\n"
+            + "    });\n"
+            + "} catch (e) {\n"
+            + "    document.getElementById('data').style = 'display: initial';\n"
+            + "    if (document.getElementsByClassName('spinner')[0]) document.getElementsByClassName('spinner')[0].style = 'display: none';\n"
+            + "    navigator.sayswho = (function () {\n"
+            + "        var ua = navigator.userAgent, tem,\n"
+            + "            M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\\/))\\/?\\s*(\\d+)/i) || [];\n"
+            + "        if (/trident/i.test(M[1])) {\n"
+            + "            tem = /\\brv[ :]+(\\d+)/g.exec(ua) || [];\n"
+            + "            return 'IE ' + (tem[1] || '');\n"
+            + "        }\n"
+            + "        if (M[1] === 'Chrome') {\n"
+            + "            tem = ua.match(/\\b(OPR|Edge)\\/(\\d+)/);\n"
+            + "            if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');\n"
+            + "        }\n"
+            + "        M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];\n"
+            + "        if ((tem = ua.match(/version\\/(\\d+)/i)) != null) M.splice(1, 1, tem[1]);\n"
+            + "        return M.join(' ');\n"
+            + "    })();\n"
+            + "    var div = document.createElement(\"div\");\n"
+            + "    var host = window.location.hostname;\n"
+            + "    var client = navigator.sayswho;\n"
+            + "    div.innerHTML = \"<p>We at \" +\n"
+            + "        host +\n"
+            + "        \" value diversity and try to be as inclusive as possible by endorsing open standards to support all kind of devices and be accessible to people with different abilities.\" +\n"
+            + "        \"</p><p> However it seems that we're experiencing a problem rendering this page correctly with \" +\n"
+            + "        client +\n"
+            + "        \". The software running this site is fully open source, maybe you could help improving it to support your browser as well? Check out the \" +\n"
+            + "        \"<a href='https://github.com/linked-solutions/tlds'>TLDS</a>\" +\n"
+            + "        \" project.</p>\";\n"
+            + "    div.style.backgroundColor = \"#ffbbbb\";\n"
+            + "    div.style.margin = \"3px\";\n"
+            + "    div.style.border = \"2px solid grey\";\n"
+            + "    div.style.padding = \"15px\";\n"
+            + "    div.style.fontSize = \"1.2em\";\n"
+            + "    document.body.insertBefore(div, document.body.firstChild);\n"
+            + "}"
             + "        </script>\n"
             + "    </body>\n"
             + "</html>";
