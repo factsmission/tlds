@@ -26,13 +26,13 @@ package org.factsmission.tlds;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.Writer;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.annotation.Priority;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -41,12 +41,9 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyWriter;
 import javax.ws.rs.ext.Provider;
 
-import org.apache.clerezza.commons.rdf.BlankNode;
-import org.apache.clerezza.commons.rdf.BlankNodeOrIRI;
 import org.apache.clerezza.commons.rdf.Graph;
 import org.apache.clerezza.commons.rdf.Literal;
 import org.apache.clerezza.commons.rdf.RDFTerm;
-import org.apache.clerezza.commons.rdf.Triple;
 import org.apache.clerezza.rdf.core.serializedform.Serializer;
 import org.apache.clerezza.rdf.utils.GraphNode;
 
@@ -56,7 +53,8 @@ import org.apache.clerezza.rdf.utils.GraphNode;
  * @author user
  */
 @Provider
-@Produces("text/html")
+@Produces("text/html; qs=0.8")
+@Priority(50)
 public class HtmlWriter implements MessageBodyWriter<Graph> {
     
 
