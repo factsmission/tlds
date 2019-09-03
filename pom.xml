@@ -20,7 +20,7 @@
         <dependency>
             <groupId>solutions.linked</groupId>
             <artifactId>slds</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.clerezza.commons-rdf</groupId>
