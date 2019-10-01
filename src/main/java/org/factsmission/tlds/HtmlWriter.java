@@ -72,7 +72,7 @@ public class HtmlWriter implements MessageBodyWriter<Graph> {
 
     final String htmlAfterMatcherURI
             = "        <script src=\"https://retog.github.io/ext-rdflib/0.5.3/rdf.js\"></script>\n"
-            + "        <script src=\"https://rdf2h.github.io/ld2h/2.3.2/ld2h.js\"></script>\n"
+            + "        <script src=\"https://rdf2h.github.io/ld2h/2.3.3/ld2h.js\"></script>\n"
             + "        <style type=\"text/css\">table { border-collapse: collapse; } td { border: 1px solid #aaaaaa; padding: 4px;} .spinner {width:80px;height:80px;margin:auto;border-radius:50%;border: 1px solid #ECEFF1;border-left: 1px solid #008e76;-webkit-transform: translateZ(0);-ms-transform: translateZ(0);transform: translateZ(0);-webkit-animation: spin 1.1s infinite linear;animation: spin 1.1s infinite linear;} @keyframes spin {0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg);}}</style>"
             + "    </head>\n"
             + "    <body>\n"
