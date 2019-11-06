@@ -26,12 +26,17 @@ package org.factsmission.tlds;
 import solutions.linked.slds.Server;
 import java.io.FileNotFoundException;
 import java.util.Set;
+import org.apache.clerezza.rdf.utils.GraphNode;
 
 
 public class TemplatingServer extends Server {
     
     public TemplatingServer(String[] args) throws FileNotFoundException {
         super(args);
+    }
+    
+    public TemplatingServer(GraphNode config) {
+        super(config);
     }
     
     public static void main(String[] args) throws Exception {
