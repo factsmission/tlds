@@ -36,6 +36,7 @@ import javax.ws.rs.core.UriBuilder;
 public class RdfExtensionsFilter implements ContainerRequestFilter {
 
     Map<String, String> extension2type = new HashMap<>();
+
     {
         extension2type.put("ttl", "text/turtle");
         extension2type.put("nt", "application/n-triples");
@@ -43,21 +44,21 @@ public class RdfExtensionsFilter implements ContainerRequestFilter {
         extension2type.put("jsonld", "application/rdf+json");
     }
 
-	@Override
-	public void filter(ContainerRequestContext requestContext) throws IOException {
+    @Override
+    public void filter(ContainerRequestContext requestContext) throws IOException {
         String path = requestContext.getUriInfo().getPath();
         int dotPos = path.lastIndexOf('.');
         if (dotPos == -1) {
             return;
         }
-        String extension = path.substring(dotPos+1);
+        String extension = path.substring(dotPos + 1);
         if (extension2type.containsKey(extension)) {
             requestContext.getHeaders().remove("Accept");
             requestContext.getHeaders().add("Accept", extension2type.get(extension));
             UriBuilder uriBuilder = requestContext.getUriInfo().getRequestUriBuilder();
-            uriBuilder.replacePath(path.substring(0,dotPos));
+            uriBuilder.replacePath(path.substring(0, dotPos));
             requestContext.setRequestUri(uriBuilder.build());
         }
-	}
+    }
 
 }
