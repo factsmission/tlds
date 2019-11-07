@@ -41,7 +41,7 @@ public class RdfExtensionsFilter implements ContainerRequestFilter {
         extension2type.put("ttl", "text/turtle");
         extension2type.put("nt", "application/n-triples");
         extension2type.put("rdf", "application/rdf+xml");
-        extension2type.put("jsonld", "application/rdf+json");
+        extension2type.put("jsonld", "application/ld+json");
     }
 
     @Override
